@@ -66,16 +66,40 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+          # TODO
+        #create stack
+        stack = Stack()
+        #get starting point
+        stack.push(starting_vertex)
+        #create set to keep track of visited
+        visited = set()
+        #run algo while items are present in stack
+        while stack.size() > 0:
+            vertex = stack.pop()
+            if vertex not in visited:
+                print(vertex)
+                visited.add(vertex)
+                for next_vert in self.get_neighbors(vertex):
+                    stack.push(next_vert)
+     
+            
+        
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # TODO
+        if visited is None:
+            visited = set()
+        visited.add(starting_vertex)
+        print(starting_vertex)
+        for child_vert in self.vertices[starting_vertex]:
+            if child_vert not in visited:
+                self.dft_recursive(child_vert, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -148,12 +172,12 @@ if __name__ == '__main__':
     '''
     print("Running bft")
     graph.bft(1)
-    graph.bft(2)
-    graph.bft(3)
-    graph.bft(4)
-    graph.bft(5)
-    graph.bft(6)
-    graph.bft(7)
+   # graph.bft(2)
+   # graph.bft(3)
+   # graph.bft(4)
+   # graph.bft(5)
+   # graph.bft(6)
+   # graph.bft(7)
    
 
     '''
@@ -163,7 +187,9 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
+    print("Running dft")
     graph.dft(1)
+    print("Running dft_recursive")
     graph.dft_recursive(1)
 
     '''
