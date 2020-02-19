@@ -1,5 +1,7 @@
 import random
-from util import Stack, Queue
+
+from util import Queue
+from util import Stack
 
 
 class User:
