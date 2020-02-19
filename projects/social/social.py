@@ -22,7 +22,10 @@ class SocialGraph:
         """
         if user_id == friend_id:
             print("WARNING: You cannot be friends with yourself")
-        elif friend_id in self.friendships[user_id] or user_id in self.friendships[friend_id]:
+        elif (
+            friend_id in self.friendships[user_id]
+            or user_id in self.friendships[friend_id]
+        ):
             print("WARNING: Friendship already exists")
         else:
             self.friendships[user_id].add(friend_id)
@@ -103,12 +106,12 @@ class SocialGraph:
                     # for f in friend:
                     if friend_id not in visited:
 
-                        #print("=====>", friend_id)
+                        # print("=====>", friend_id)
                         new_path = path.copy()
 
                         new_path.append(friend_id)
 
-                   # print(q.size())
+                        # print(q.size())
                         q.enqueue(new_path)
                     # print(q.size())
 
@@ -116,7 +119,7 @@ class SocialGraph:
         return visited
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sg = SocialGraph()
     sg.populate_graph(10, 2)
     # print("USERS:")
