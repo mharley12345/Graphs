@@ -23,7 +23,7 @@ def earliest_ancestor(ancestors, starting_vertex):
     else:
         return ancestor[-1]
     
-    list_of_ancestors = [(1,3),(2,3),(3,6),(5,6),(5,7)
+    list_of_ancestors = [(1,3),(2,3),(3,6),(5,6),(5,7),
                          (4,5),(4,8),(8,9),(11,9),(10,1)]
     
     earliest_ancestor(list_of_ancestors, 3)
