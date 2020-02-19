@@ -63,9 +63,9 @@ class SocialGraph:
 
         # Shuffle the list
         random.shuffle(possible_friendships)
-        print("----")
-        print(possible_friendships)
-        print("----")
+        #print("----")
+        #print(possible_friendships)
+        #print("----")
         # Grab the first N pairs from the list and create those friendships
         for i in range(num_users * avg_friendships // 2):
             friendship = possible_friendships[i]
@@ -90,7 +90,7 @@ class SocialGraph:
         
         
         q = Queue()
-        q.enqueue( [user_id] )
+        q.enqueue([user_id])
         visited = {}  # Note that this is a dictionary, not a set
         # visited.update(test='value')
         print("visited dict: ", visited)
@@ -100,19 +100,22 @@ class SocialGraph:
             user = path[-1]
             if user not in visited:
                 # print("NOT IN VISITED", user)
-                visited.update({user:path})
-                for friend_id in self.friendships[user_id]:
-                    # for f in friend:
+                visited[user] =path
+                for friend_id in self.friendships[user]:
+                    #for f in friend:
+                    if friend_id not in visited:
                         
 
-                    print("=====>", friend_id)
-                    new_path = path.copy()
+                    #print("=====>", friend_id)
+                        new_path = path.copy()
 
-                    new_path.append(friend_id)
+                        new_path.append(friend_id)
 
                    # print(q.size())
-                    q.enqueue(new_path)
+                        q.enqueue(new_path)
                     #print(q.size())
+                   
+            
             
             
         # !!!! IMPLEMENT ME
@@ -122,9 +125,9 @@ class SocialGraph:
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print("USERS:")
-    print(sg.users)
-    print("FRIENDSHIPS:")
-    print(sg.friendships)
+    #print("USERS:")
+    #print(sg.users)
+    #print("FRIENDSHIPS:")
+    #print(sg.friendships)
     connections = sg.get_all_social_paths(1)
     print(connections)
