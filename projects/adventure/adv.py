@@ -10,10 +10,10 @@ world = World()
 
 
 # You may uncomment the smaller graphs for development and testing purposes.
-#map_file = "maps/test_line.txt"
-#map_file = "maps/test_cross.txt"
-#map_file = "maps/test_loop.txt"
-#map_file = "maps/test_loop_fork.txt"
+# map_file = "maps/test_line.txt"
+# map_file = "maps/test_cross.txt"
+# map_file = "maps/test_loop.txt"
+# map_file = "maps/test_loop_fork.txt"
 map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
@@ -44,6 +44,7 @@ def current_room_vertex():
         room[exit] = "?"
         map_graph[player.current_room.id] = room
 
+
 # Algorithm to find random exit that hasn't been explored yet
 
 
@@ -59,6 +60,7 @@ def current_room_unexplored_exit():
     # Randomize the choice from unexplored exits and return as a string
     return random.choice(unexplored)
 
+
 # BFT function to find nearest '?' unexplored exit
 # Returns a list of room ids needed to get to first room with unexplored exits
 
@@ -72,7 +74,7 @@ def find_nearest_unexplored_exit(room_id):
         path = q.dequeue()
         current_room = path[-1]
         # Check first after dequeue whether this room has unexplored exits, return path immediately
-        if list(map_graph[current_room].values()).count('?') != 0:
+        if list(map_graph[current_room].values()).count("?") != 0:
             return path
         if current_room not in visited:
             visited.add(current_room)
@@ -90,7 +92,7 @@ while len(map_graph) < len(room_graph):
     # Player object contains move commands linking to Room object and current room is stored in player
     # Check inside of map_graph for current room, find '?' exits remaining
 
-    if list(map_graph[player.current_room.id].values()).count('?') != 0:
+    if list(map_graph[player.current_room.id].values()).count("?") != 0:
         # Track room numbers, so it can be assigned
         room_id_before_move = player.current_room.id
         # do traversal in random direction
@@ -105,9 +107,15 @@ while len(map_graph) < len(room_graph):
         # Assign room number to previous room exits
         map_graph[room_id_before_move][random_exit] = player.current_room.id
         # Assign previous room id to current room but direction needs to be flipped
-        flipped_direction = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e', }
-        map_graph[player.current_room.id][flipped_direction[random_exit]
-                                          ] = room_id_before_move
+        flipped_direction = {
+            "n": "s",
+            "s": "n",
+            "e": "w",
+            "w": "e",
+        }
+        map_graph[player.current_room.id][
+            flipped_direction[random_exit]
+        ] = room_id_before_move
     else:
         # Do BFT to find nearest room with '?'
         # Room Path inside of BFT should hold room_id, this can be used to create the edges between rooms.
@@ -137,7 +145,8 @@ for move in traversal_path:
 
 if len(visited_rooms) == len(room_graph):
     print(
-        f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+        f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited"
+    )
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
