@@ -1,9 +1,11 @@
-from room import Room
-from player import Player
-from world import World
-from util import Queue, Stack
 import random
 from ast import literal_eval
+
+from player import Player
+from room import Room
+from util import Queue
+from util import Stack
+from world import World
 
 # Load world
 world = World()
