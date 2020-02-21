@@ -79,6 +79,49 @@ def find_nearest_unexplored_exit(room_id):
                 new_path = path.copy()
                 new_path.append(new_room)
                 q.enqueue(new_path)
+                
+current_room_vertex()
+# Loop through map and build the graph
+while len(map_graph) < len(room_graph):
+   
+    # Player object contains move commands linking to Room object and current room is stored in player
+    # Check inside of map_graph for current room, find '?' exits remaining
+    
+    if list(map_graph[player.current_room.id].values()).count('?') != 0:
+        # Track room numbers, so it can be assigned
+        room_id_before_move = player.current_room.id
+        # do traversal in random direction
+        random_exit = current_room_unexplored_exit()
+        # move in that direction to the other room
+        player_travel_direction(random_exit)
+        # Add to Traversal-Path
+        traversal_path.append(random_exit)
+        # Check the room moved into is part of created map_graph, otherwise create a new vertex/room
+        if player.current_room.id not in map_graph:
+            current_room_vertex()
+        # Assign room number to previous room exits
+        map_graph[room_id_before_move][random_exit] = player.current_room.id
+        # Assign previous room id to current room but direction needs to be flipped
+        flipped_direction = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e', }
+        map_graph[player.current_room.id][flipped_direction[random_exit]
+                                          ] = room_id_before_move
+    else:
+        # Do BFT to find nearest room with '?'
+        # Room Path inside of BFT should hold room_id, this can be used to create the edges between rooms. 
+        backward_path = find_nearest_unexplored_exit(player.current_room.id)
+        # Use backward_path to move the player back
+        # Path needs to be converted to traversal_path directions
+        for each_room_id in backward_path:
+            # For each of the directions in a room
+            for each_direction in map_graph[player.current_room.id]:
+                # Match  room id 
+                if map_graph[player.current_room.id][each_direction] == each_room_id:
+                    # move the player and add to traversal_path
+                    player.travel(each_direction)
+                    traversal_path.append(each_direction)
+                    # Break out the inner loop as it just moved the player
+                    break
+              
 
 
 
