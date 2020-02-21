@@ -101,9 +101,9 @@ class SocialGraph:
             v = path[-1]
             if v not in visited:
                 # print("NOT IN VISITED", user)
-                visited[v] =path
+                visited[v] = path
                 for friend_id in self.friendships[v]:
-                    #for f in friend:
+                    # for f in friend:
                     if friend_id not in visited:
 
                         # print("=====>", friend_id)
@@ -122,13 +122,13 @@ class SocialGraph:
 if __name__ == "__main__":
     sg = SocialGraph()
     sg.populate_graph(100, 5)
-    #print("USERS:")
-    #print(sg.users)
-    #print("FRIENDSHIPS:")
-    #print(sg.friendships)
+    # print("USERS:")
+    # print(sg.users)
+    # print("FRIENDSHIPS:")
+    # print(sg.friendships)
     connections = sg.get_all_social_paths(1)
     print(len(connections))
     total = 0
     for connection in connections:
         total += len(connections[connection])
-    print(total / len(connections) -1)
+    print(total / len(connections) - 1)

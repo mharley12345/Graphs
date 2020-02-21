@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-from util import Queue,Stack
+from util import Queue, Stack
 import random
 from ast import literal_eval
 
@@ -17,7 +17,7 @@ world = World()
 map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
-room_graph=literal_eval(open(map_file, "r").read())
+room_graph = literal_eval(open(map_file, "r").read())
 world.load_graph(room_graph)
 
 # Print an ASCII map
@@ -43,8 +43,10 @@ def current_room_vertex():
     for exit in player.current_room.get_exits():
         room[exit] = "?"
         map_graph[player.current_room.id] = room
-    
+
 # Algorithm to find random exit that hasn't been explored yet
+
+
 def current_room_unexplored_exit():
     # Track the unexplored exits
     unexplored = []
@@ -79,14 +81,15 @@ def find_nearest_unexplored_exit(room_id):
                 new_path = path.copy()
                 new_path.append(new_room)
                 q.enqueue(new_path)
-                
+
+
 current_room_vertex()
 # Loop through map and build the graph
 while len(map_graph) < len(room_graph):
-   
+
     # Player object contains move commands linking to Room object and current room is stored in player
     # Check inside of map_graph for current room, find '?' exits remaining
-    
+
     if list(map_graph[player.current_room.id].values()).count('?') != 0:
         # Track room numbers, so it can be assigned
         room_id_before_move = player.current_room.id
@@ -107,27 +110,20 @@ while len(map_graph) < len(room_graph):
                                           ] = room_id_before_move
     else:
         # Do BFT to find nearest room with '?'
-        # Room Path inside of BFT should hold room_id, this can be used to create the edges between rooms. 
+        # Room Path inside of BFT should hold room_id, this can be used to create the edges between rooms.
         backward_path = find_nearest_unexplored_exit(player.current_room.id)
         # Use backward_path to move the player back
         # Path needs to be converted to traversal_path directions
         for each_room_id in backward_path:
             # For each of the directions in a room
             for each_direction in map_graph[player.current_room.id]:
-                # Match  room id 
+                # Match  room id
                 if map_graph[player.current_room.id][each_direction] == each_room_id:
                     # move the player and add to traversal_path
                     player.travel(each_direction)
                     traversal_path.append(each_direction)
                     # Break out the inner loop as it just moved the player
                     break
-              
-
-
-
-
-
-
 
 
 # TRAVERSAL TEST
@@ -140,11 +136,11 @@ for move in traversal_path:
     visited_rooms.add(player.current_room)
 
 if len(visited_rooms) == len(room_graph):
-    print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+    print(
+        f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
-
 
 
 #######
