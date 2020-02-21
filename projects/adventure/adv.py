@@ -10,7 +10,6 @@ from world import World
 # Load world
 world = World()
 
-
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
@@ -116,8 +115,7 @@ while len(map_graph) < len(room_graph):
             "w": "e",
         }
         map_graph[player.current_room.id][
-            flipped_direction[random_exit]
-        ] = room_id_before_move
+            flipped_direction[random_exit]] = room_id_before_move
     else:
         # Do BFT to find nearest room with '?'
         # Room Path inside of BFT should hold room_id, this can be used to create the edges between rooms.
@@ -128,13 +126,13 @@ while len(map_graph) < len(room_graph):
             # For each of the directions in a room
             for each_direction in map_graph[player.current_room.id]:
                 # Match  room id
-                if map_graph[player.current_room.id][each_direction] == each_room_id:
+                if map_graph[player.current_room.
+                             id][each_direction] == each_room_id:
                     # move the player and add to traversal_path
                     player.travel(each_direction)
                     traversal_path.append(each_direction)
                     # Break out the inner loop as it just moved the player
                     break
-
 
 # TRAVERSAL TEST
 visited_rooms = set()
@@ -152,7 +150,6 @@ if len(visited_rooms) == len(room_graph):
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
-
 
 #######
 # UNCOMMENT TO WALK AROUND
