@@ -2,21 +2,27 @@
 
 ## Objectives
 
-* Learn the difference between randomness and pseudorandomness
-* Learn how how to shuffle an array in O(n) time and space complexity
-
+- Learn the difference between randomness and pseudorandomness
+- Learn how how to shuffle an array in O(n) time and space complexity
 
 ## What is randomness?
 
-What is Randomness? This seems like a simple question but randomness is actually one of the most commonly misunderstood concepts in math and computing. Here's a definition of randomness from [wikipedia](https://en.wikipedia.org/wiki/Randomness):
+What is Randomness? This seems like a simple question but randomness is actually
+one of the most commonly misunderstood concepts in math and computing. Here's a
+definition of randomness from
+[wikipedia](https://en.wikipedia.org/wiki/Randomness):
 
 ```
 Randomness is the lack of pattern or predictability in events. A random sequence of events, symbols or steps has no order and does not follow an intelligible pattern or combination.
 ```
 
-Coin flips are random: If you flip a coin 9 times and get 9 __heads__ in a row, the probability of hitting __heads__ a 10th time is still exactly 50%.
+Coin flips are random: If you flip a coin 9 times and get 9 **heads** in a row,
+the probability of hitting **heads** a 10th time is still exactly 50%.
 
-Rock-Paper-Scissors is NOT random when played with humans. It turns out, people are quite poor at randomizing which makes it possible to gain an edge over opponents using [psychological analysis](https://priceonomics.com/the-world-of-competitive-rock-paper-scissors/).
+Rock-Paper-Scissors is NOT random when played with humans. It turns out, people
+are quite poor at randomizing which makes it possible to gain an edge over
+opponents using
+[psychological analysis](https://priceonomics.com/the-world-of-competitive-rock-paper-scissors/).
 
 Try this exercise:
 
@@ -24,9 +30,13 @@ Try this exercise:
 Write down 10 random numbers between 1-10.
 ```
 
-What were you thinking while choosing numbers? Did you have thoughts like, "I already picked 7 twice so I shouldn't pick 7 again," or, "I need a 5 since there hasn't been one yet." Everytime you use rationale like this, you add personal bias, making your choices more predictable and less random.
+What were you thinking while choosing numbers? Did you have thoughts like, "I
+already picked 7 twice so I shouldn't pick 7 again," or, "I need a 5 since there
+hasn't been one yet." Everytime you use rationale like this, you add personal
+bias, making your choices more predictable and less random.
 
-Computers are pretty good at this sort of randomness. Here's a Python list comprehension that runs this exercise 10 times in a row:
+Computers are pretty good at this sort of randomness. Here's a Python list
+comprehension that runs this exercise 10 times in a row:
 
 ```python
 >>> import random
@@ -52,9 +62,15 @@ Computers are pretty good at this sort of randomness. Here's a Python list compr
 [8, 1, 4, 3, 4, 3, 5, 4, 4, 9]
 ```
 
-Looking at these results, you may think that the lists seem LESS random. After all, the first list contains three 6s, two 2s, two 9s, and no 3s, 5s, 8s or 10s. The seventh list is 80% 1s and 2s. Is this REALLY random?
+Looking at these results, you may think that the lists seem LESS random. After
+all, the first list contains three 6s, two 2s, two 9s, and no 3s, 5s, 8s or 10s.
+The seventh list is 80% 1s and 2s. Is this REALLY random?
 
-The short answer is **yes**. Small random sample sizes will show statistical variation. The larger the sample size though, the closer the result will skew toward the expected values. This is known as the [Law of Large Numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers). Consider the following function:
+The short answer is **yes**. Small random sample sizes will show statistical
+variation. The larger the sample size though, the closer the result will skew
+toward the expected values. This is known as the
+[Law of Large Numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers).
+Consider the following function:
 
 ```python
 import random
@@ -69,7 +85,8 @@ def random_counts(n):
     return counts
 ```
 
-This will generate a list of n random numbers then count how many of each there are. Let's try running it for different values of n.
+This will generate a list of n random numbers then count how many of each there
+are. Let's try running it for different values of n.
 
 ```python
 >>> random_counts(10)
@@ -104,17 +121,30 @@ This will generate a list of n random numbers then count how many of each there 
 {1: 100170, 2: 100205, 3: 99644, 4: 99702, 5: 99874, 6: 100316, 7: 99996, 8: 99864, 9: 99968, 10: 100260}
 ```
 
-Statistically, you would expect each number to show up exactly 10% of the time. As you can see, the larger the n, the closer the results get to that expected percentage. This is how casinos work: they may lose a large amount of money on a single roll of the roulette wheel but over thousands of spins, the house always comes out ahead in the long run.
+Statistically, you would expect each number to show up exactly 10% of the time.
+As you can see, the larger the n, the closer the results get to that expected
+percentage. This is how casinos work: they may lose a large amount of money on a
+single roll of the roulette wheel but over thousands of spins, the house always
+comes out ahead in the long run.
 
-Computers are quite good at producing statistical randomness like this. But is it __actually__ random? Turns out, the answer is no.
+Computers are quite good at producing statistical randomness like this. But is
+it **actually** random? Turns out, the answer is no.
 
 ## What is pseudorandomness?
 
-Computers are machines that take some input, run a set of operations on that input, then return an output. These operations are generally **deterministic**, which means it will always produce the same output from an identical set of inputs.
+Computers are machines that take some input, run a set of operations on that
+input, then return an output. These operations are generally **deterministic**,
+which means it will always produce the same output from an identical set of
+inputs.
 
-You can think of computers like powerful calculators: inputting `5+5` will always return 10 and `123 * 456` will always return 56088 but there's no way to generate a truly random value.
+You can think of computers like powerful calculators: inputting `5+5` will
+always return 10 and `123 * 456` will always return 56088 but there's no way to
+generate a truly random value.
 
-While computers are physically incapable of generating random numbers, they are quite adept at generating __pseudorandom__ numbers. This involves taking an arbitrary input value called a __seed__ and scrambling it with a deterministic algorithm. Let's take a look at this in action in Python.
+While computers are physically incapable of generating random numbers, they are
+quite adept at generating **pseudorandom** numbers. This involves taking an
+arbitrary input value called a **seed** and scrambling it with a deterministic
+algorithm. Let's take a look at this in action in Python.
 
 ```python
 >>> import random
@@ -130,7 +160,8 @@ While computers are physically incapable of generating random numbers, they are 
 0.47905656332349167
 ```
 
-The `random.random()` function returns a random value between 0 and 1. Now, let's see what happens when we pass in a seed.
+The `random.random()` function returns a random value between 0 and 1. Now,
+let's see what happens when we pass in a seed.
 
 ```python
 >>> random.seed(123)
@@ -162,12 +193,18 @@ Nothing out of the ordinary. Now, let's reset the seed and try again:
 0.9011988779516946
 ```
 
-As you can see, we get the exact same values! This is useful if you want to get a predictable chain of "random" numbers, like if you wanted to recreate a particular [Minecraft map](https://www.pcgamesn.com/minecraft/30-best-minecraft-seeds). With pseudorandom number generators, an entire world can be contained in one simple integer.
-
+As you can see, we get the exact same values! This is useful if you want to get
+a predictable chain of "random" numbers, like if you wanted to recreate a
+particular
+[Minecraft map](https://www.pcgamesn.com/minecraft/30-best-minecraft-seeds).
+With pseudorandom number generators, an entire world can be contained in one
+simple integer.
 
 # Shuffling an Array
 
-Now that we know how computers generate random numbers, let's try shuffling an array. We can do this quite efficiently using an algorithm called the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle).
+Now that we know how computers generate random numbers, let's try shuffling an
+array. We can do this quite efficiently using an algorithm called the
+[Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle).
 
 Here's the basic algorithm:
 
@@ -175,13 +212,16 @@ Here's the basic algorithm:
 2. Swap the first element with the i-th element, where i is a random position.
 3. Repeat this for each element, in order, until you reach the end of the list.
 
-Let's try implementing the Fisher-Yates using the Python function, `random.randint(a, b)` which returns a random integer between a and b (including a and b). We'll start with a sorted list of N elements, where N=5.
+Let's try implementing the Fisher-Yates using the Python function,
+`random.randint(a, b)` which returns a random integer between a and b (including
+a and b). We'll start with a sorted list of N elements, where N=5.
 
 ```python
 >>> l = [0, 1, 2, 3, 4]
 ```
 
-Now, we find a random index between 0 and N-1 (i.e. 4) to swap our first element with.
+Now, we find a random index between 0 and N-1 (i.e. 4) to swap our first element
+with.
 
 ```python
 >>> random.randint(0, 4)
@@ -198,7 +238,8 @@ This returned `2`, so let's swap the first element with the item in index 2.
 [2, 1, 0, 3, 4]
 ```
 
-Notice that we needed to store l[2] in a temporary variable before swapping so it didn't get overwritten by l[0].
+Notice that we needed to store l[2] in a temporary variable before swapping so
+it didn't get overwritten by l[0].
 
 Let's move on to the next element:
 
@@ -224,7 +265,8 @@ Onto the third element!
 2
 ```
 
-Here, our random number generator returned `2`, which is the same index we want to swap, so we swap the number with itself. This is perfectly fine.
+Here, our random number generator returned `2`, which is the same index we want
+to swap, so we swap the number with itself. This is perfectly fine.
 
 ```python
 >>> swap = l[2]
@@ -246,7 +288,12 @@ Let's finish up.
 [2, 4, 0, 1, 3]
 ```
 
-And we're done! Our list, `l` is now shuffled. We don't need to swap the last element since `random.randint(4,4)` will always return 4. We visited each element once and both finding a random index and swapping happens in O(1) time, so our overall shuffle occurs in O(n) time. We don't require any extra memory besides the swap variable, so our space complexity is O(n + 1), or just O(n) since we ignore the lesser factors.
+And we're done! Our list, `l` is now shuffled. We don't need to swap the last
+element since `random.randint(4,4)` will always return 4. We visited each
+element once and both finding a random index and swapping happens in O(1) time,
+so our overall shuffle occurs in O(n) time. We don't require any extra memory
+besides the swap variable, so our space complexity is O(n + 1), or just O(n)
+since we ignore the lesser factors.
 
 We can generalize this into an algorithm like so:
 
